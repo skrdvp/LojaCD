@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<cc:interface>
+	<cc:attribute name="acao" required="true" />
+	<cc:attribute name="update" />
+	<cc:attribute name="oncomplete" />
+</cc:interface>
+
+<cc:implementation>
+	<p:panelGrid columns="2">
+					Titulo:
+					<p:inputText value="#{cdBean.cd.titulo}" label="Titulo" />
+					
+					Artista:
+					<p:inputText value="#{cdBean.cd.artista}" label="Artista" />
+					
+					Genero:
+					<p:selectOneMenu value="#{cdBean.cd.genero}" label="Genero">
+			<f:selectItem itemLabel="--Selecione um Genero--"
+				noSelectionOption="true" />
+			<f:selectItems value="#{generoBean.generos}" var="genero"
+				itemLabel="#{genero.descricao}" itemValue="#{genero}" />
+		</p:selectOneMenu> 
+					
+					Preço:
+					<p:inputText value="#{cdBean.cd.preco}" label="Preço" />
+
+
+		<c:if test="#{cc.attrs.acao == 'create'}">
+			<p:commandButton type="reset" value="Limpar" />
+			<p:commandButton action="#{cdBean.salvar}" value="Salvar"
+				id="btnSalvar" oncomplete="#{cc.attrs.oncomplete}" update="#{cc.attrs.update}"/>
+			<p:defaultCommand target="btnSalvar" rendered="false" />
+		</c:if>
+
+		<c:if test="#{cc.attrs.acao == 'update'}">
+			<p:commandButton value="Apagar" action="#{cdBean.deletar}" oncomplete="#{cc.attrs.oncomplete}" update="#{cc.attrs.update}"/>
+			<p:commandButton action="#{cdBean.atualizar}" value="Salvar"
+				id="btnAtualizar" oncomplete="#{cc.attrs.oncomplete}" update="#{cc.attrs.update}"/>
+			<p:defaultCommand target="btnAtualizar" rendered="false" />
+		</c:if>
+	</p:panelGrid>
+</cc:implementation>
+</html>

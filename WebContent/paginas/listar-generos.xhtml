@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form">
+			<p:dataTable value="#{generoBean.generos}" var="genero"
+				id="tabelaGeneros">
+				<p:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{genero.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Descricao</f:facet>
+					<h:outputText value="#{genero.descricao}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+					<p:commandButton update=":form:generoDialog" value="Editar"
+						oncomplete="PF('generoWidget').show()">
+						<f:setPropertyActionListener value="#{genero}"
+							target="#{generoBean.genero}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog widgetVar="generoWidget" header="Alterar Genero"
+				id="generoDialog" modal="true">
+				<p:panelGrid columns="2">
+						Genero: <h:inputText value="#{generoBean.genero.descricao}" />
+					<p:commandButton value="Apagar" action="#{generoBean.deletar}"
+						update=":form:tabelaGeneros" onsuccess="PF('generoWidget').hide()" />
+					<p:commandButton value="Salvar" action="#{generoBean.atualizar}"
+						update=":form:tabelaGeneros" onsuccess="PF('generoWidget').hide()"
+						id="btnSalvar" />
+
+				</p:panelGrid>
+				<p:defaultCommand target="btnSalvar" />
+			</p:dialog>
+		</h:form>
+
+		<br />
+		<h:link outcome="menu" value="Voltar" />
+
+	</ui:define>
+</ui:composition>
+</html>

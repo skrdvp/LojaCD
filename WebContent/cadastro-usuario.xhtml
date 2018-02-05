@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:form>
+	<ui:composition template="/templates/main-template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<p:panelGrid columns="2">
+		Nome: <p:inputText required="true" value="#{nome}" label="Nome" />
+		Login: <p:inputText required="true" value="#{login}" label="Login" />
+		Senha: <p:password required="true" value="#{senha}" label="Senha" />
+					<p:commandButton value="Limpar" type="reset" />
+					<p:commandButton value="Gravar"
+						action="#{usuarioBean.newUsuario(nome, login, senha)}"
+						update=":msg" />
+				</p:panelGrid>
+			</h:form>
+
+			<br />
+			<h:link outcome="index" value="Voltar" />
+
+		</ui:define>
+	</ui:composition>
+</h:form>
+</html>

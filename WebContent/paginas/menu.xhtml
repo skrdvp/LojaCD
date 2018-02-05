@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<ul style="list-style: none;">
+				<li><p:link outcome="listar-cds" value="Listar todos os CDs" /></li>
+				<li><p:link outcome="listar-generos"
+						value="Listar todos os generos" /></li>
+				<li><p:link value="Filtrar CDs por genero" /></li>
+				<li><p:link value="Filtrar CDs por faixa de preco" /></li>
+				<li><p:link outcome="cadastrar-cd" value="Cadastrar novo CD" /></li>
+				<li><p:link outcome="cadastrar-genero"
+						value="Cadastrar novo genero" /></li>
+				<li><p:commandLink action="#{usuarioBean.logout}"
+						value="Logout" /></li>
+			</ul>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

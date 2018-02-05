@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/componentes">
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<p:dataTable value="#{cdBean.cdsWithGenero}" var="cd" id="tabelaCds">
+				<p:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{cd.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Titulo</f:facet>
+					<h:outputText value="#{cd.titulo}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Artista</f:facet>
+					<h:outputText value="#{cd.artista}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Preco</f:facet>
+					<h:outputText value="#{cd.preco}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Genero</f:facet>
+					<h:outputText value="#{cd.genero.descricao}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+					<p:commandButton value="Editar" oncomplete="PF('cdWidget').show()"
+						update=":form:cdDialog">
+						<f:setPropertyActionListener value="#{cd}" target="#{cdBean.cd}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog widgetVar="cdWidget" id="cdDialog" header="Alterar CD"
+				modal="true">
+				<cc:formularioCD update=":form:tabelaCds"
+					oncomplete="PF('cdWidget').hide()" acao="update" />
+			</p:dialog>
+
+		</h:form>
+		<br />
+		<h:link outcome="menu" value="Voltar" />
+	</ui:define>
+</ui:composition>
+</html>
